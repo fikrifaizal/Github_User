@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Github User</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--  Splashscreen  -->
+    <string name="logo_aplikasi">Logo Aplikasi</string>
+
+    <!--  Main  -->
+    <string name="search_hint">Ketik nama atau username</string>
+
+    <!--  Detail  -->
+    <string name="repository">Repository</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="share">Share</string>
+    <string name="icon_location">icon location</string>
+    <string name="icon_company">icon company</string>
+    <string name="empty_following">Tidak ada Following</string>
+    <string name="empty_followers">Tidak ada Followers</string>
+
+    <!--  Setting  -->
+    <string name="setting">Setting</string>
+    <string name="theme">Ganti Tema</string>
+
+    <!--  Status  -->
+    <string name="image_status">Image Status Internet</string>
+    <string name="status_offline">Oops, terjadi permalasahan. Pastikan internetmu sedang menyala ya</string>
+    <string name="status_nothing">User yang anda cari tidak dapat kami temukan</string>
+</resources>
