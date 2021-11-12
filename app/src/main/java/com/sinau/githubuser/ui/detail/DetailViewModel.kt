@@ -19,6 +19,9 @@ class DetailViewModel : ViewModel() {
     private val _isOnline = MutableLiveData<Boolean>()
     val isOnline : LiveData<Boolean> = _isOnline
 
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite : LiveData<Boolean> = _isFavorite
+
     fun getDetailUser(username: String) : LiveData<DetailUserResponse> {
         val client = ApiConfig.getApiService().getDetail(username)
         client.enqueue(object : Callback<DetailUserResponse> {

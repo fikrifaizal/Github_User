@@ -27,6 +27,7 @@ class DetailActivity : AppCompatActivity() {
     private var nameUser : String = ""
     private var locUser : String = ""
     private var compUser : String = ""
+    private var iconFav : Int = R.drawable.ic_favorite_white
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +91,10 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun isFavorite(favorite: Boolean) {
+        iconFav = if (favorite) R.drawable.ic_favorite_red else R.drawable.ic_favorite_white
+    }
+
     private fun setViewPager(username: String) {
         val bundle = Bundle()
         bundle.putString(EXTRA_DATA, username)
@@ -115,6 +120,10 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.favorite -> {
+
+                true
+            }
             R.id.share -> {
                 val shareText = "User *$nameUser* tinggal di $locUser dan bekerja di $compUser"
 

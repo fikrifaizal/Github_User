@@ -13,6 +13,7 @@
     <string name="followers">Followers</string>
     <string name="following">Following</string>
     <string name="share">Share</string>
+    <string name="favorite">Favorite</string>
     <string name="icon_location">icon location</string>
     <string name="icon_company">icon company</string>
     <string name="empty_following">Tidak ada Following</string>

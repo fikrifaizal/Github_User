@@ -5,8 +5,9 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="github">#171212</color>
-    <color name="github_bright">#373232</color>
+    <color name="github_dark">#171212</color>
+    <color name="github_normal">#373232</color>
+    <color name="github_bright">#555050</color>
 </resources>

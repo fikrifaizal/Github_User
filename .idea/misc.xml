@@ -3,12 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/layout/activity_detail.xml" value="0.2056159420289855" />
+        <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/drawable/ic_favorite.xml" value="0.3828125" />
+        <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/drawable/ic_favorite_red.xml" value="0.3828125" />
+        <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/drawable/ic_favorite_white.xml" value="0.3828125" />
+        <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/drawable/ic_location.xml" value="0.3828125" />
+        <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/drawable/ic_search.xml" value="0.3828125" />
+        <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/drawable/ic_share.xml" value="0.3828125" />
+        <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/layout/activity_detail.xml" value="0.33" />
         <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/layout/activity_favorite.xml" value="0.22" />
         <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/layout/activity_favorite_user.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/layout/activity_main.xml" value="0.2006340579710145" />
         <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/layout/activity_setting.xml" value="0.33" />
         <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/layout/item_row_user.xml" value="0.36666666666666664" />
+        <entry key="..\:/Programming - Android/GithubUser/app/src/main/res/menu/menu_detail.xml" value="0.33" />
       </map>
     </option>
   </component>
