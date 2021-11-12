@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.sinau.githubuser.R
-import com.sinau.githubuser.databinding.ItemRowUserBinding
 import com.sinau.githubuser.model.User
 import com.sinau.githubuser.ui.detail.DetailActivity
 
