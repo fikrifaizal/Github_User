@@ -5,39 +5,54 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sinau.githubuser.R
+import com.sinau.githubuser.data.database.FavoriteUser
 import com.sinau.githubuser.ui.adapter.SectionsPagerAdapter
 import com.sinau.githubuser.databinding.ActivityDetailBinding
 import com.sinau.githubuser.model.DetailUserResponse
 import com.sinau.githubuser.model.User
+import com.sinau.githubuser.ui.ViewModelFactory
 import java.util.*
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private val detailViewModel by viewModels<DetailViewModel>()
+    private lateinit var detailViewModel: DetailViewModel
 
     private var nameUser : String = ""
     private var locUser : String = ""
     private var compUser : String = ""
-    private var iconFav : Int = R.drawable.ic_favorite_white
+    private var isFavorite: Boolean = false
+
+    private var favoriteUser: FavoriteUser? = null
+    private lateinit var detailUser: DetailUserResponse
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        detailViewModel = obtainViewModel(this@DetailActivity)
+
         val user = intent.getParcelableExtra<User>(EXTRA_USERNAME) as User
+
+        if (favoriteUser != null) {
+            isFavorite = true
+        } else {
+            favoriteUser = FavoriteUser()
+        }
 
         detailViewModel.getDetailUser(user.login).observe(this, {
             showDetailUser(it)
+            detailUser = it
         })
         detailViewModel.isOnline.observe(this, { status ->
             showStatus(status)
@@ -52,7 +67,12 @@ class DetailActivity : AppCompatActivity() {
         actionBar?.setHomeAsUpIndicator(R.drawable.ic_back_button)
     }
 
-    private fun showDetailUser(user: DetailUserResponse){
+    private fun obtainViewModel(activity: AppCompatActivity): DetailViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory)[DetailViewModel::class.java]
+    }
+
+    private fun showDetailUser(user: DetailUserResponse) {
         nameUser = if (user.name == "null") "-" else user.name
         locUser = if (user.location == "null") "-" else user.location
         compUser = if (user.company == "null") "-" else user.company
@@ -68,6 +88,22 @@ class DetailActivity : AppCompatActivity() {
         Glide.with(this@DetailActivity)
             .load(user.avatarUrl)
             .into(binding.userPhoto)
+    }
+
+    private fun setFavoriteUser(user: DetailUserResponse) {
+        val login = user.login.trim()
+        val avatarUrl = user.avatarUrl.trim()
+        val id = 123
+        val type = "agh".trim()
+        val isFavorite = true
+        favoriteUser.let { favoriteUser ->
+            favoriteUser?.login = login
+            favoriteUser?.avatarUrl = avatarUrl
+            favoriteUser?.id = id
+            favoriteUser?.type = type
+            favoriteUser?.isFavorite = isFavorite
+        }
+        detailViewModel.insert(favoriteUser as FavoriteUser)
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -89,10 +125,6 @@ class DetailActivity : AppCompatActivity() {
             binding.status.visibility = View.VISIBLE
             binding.textStatus.text = getString(R.string.status_offline)
         }
-    }
-
-    private fun isFavorite(favorite: Boolean) {
-        iconFav = if (favorite) R.drawable.ic_favorite_red else R.drawable.ic_favorite_white
     }
 
     private fun setViewPager(username: String) {
@@ -121,7 +153,8 @@ class DetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.favorite -> {
-
+                setFavoriteUser(detailUser)
+                showToast("Berhasil")
                 true
             }
             R.id.share -> {
@@ -135,6 +168,10 @@ class DetailActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

@@ -3,6 +3,7 @@ package com.sinau.githubuser.ui
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.sinau.githubuser.ui.detail.DetailViewModel
 import com.sinau.githubuser.ui.favorite.FavoriteViewModel
 import com.sinau.githubuser.ui.setting.SettingPreferences
 import com.sinau.githubuser.ui.setting.SettingViewModel
@@ -26,7 +27,9 @@ class ViewModelFactory(private val mApplication: Any) : ViewModelProvider.NewIns
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
+            return DetailViewModel(mApplication as Application) as T
+        } else if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
             return FavoriteViewModel(mApplication as Application) as T
         } else if (modelClass.isAssignableFrom(SettingViewModel::class.java)) {
             return SettingViewModel(mApplication as SettingPreferences) as T

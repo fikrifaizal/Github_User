@@ -1,15 +1,18 @@
 package com.sinau.githubuser.ui.detail
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sinau.githubuser.data.api.ApiConfig
+import com.sinau.githubuser.data.database.FavoriteUser
+import com.sinau.githubuser.data.repository.FavoriteUserRepository
 import com.sinau.githubuser.model.DetailUserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(application: Application) : ViewModel() {
 
     private val _userDetail = MutableLiveData<DetailUserResponse>()
 
@@ -19,8 +22,7 @@ class DetailViewModel : ViewModel() {
     private val _isOnline = MutableLiveData<Boolean>()
     val isOnline : LiveData<Boolean> = _isOnline
 
-    private val _isFavorite = MutableLiveData<Boolean>()
-    val isFavorite : LiveData<Boolean> = _isFavorite
+    private val mFavoriteUserRepository: FavoriteUserRepository = FavoriteUserRepository(application)
 
     fun getDetailUser(username: String) : LiveData<DetailUserResponse> {
         val client = ApiConfig.getApiService().getDetail(username)
@@ -40,5 +42,13 @@ class DetailViewModel : ViewModel() {
 
         })
         return _userDetail
+    }
+
+    fun insert(favoriteUser: FavoriteUser) {
+        mFavoriteUserRepository.insert(favoriteUser)
+    }
+
+    fun delete(favoriteUser: FavoriteUser) {
+        mFavoriteUserRepository.delete(favoriteUser)
     }
 }

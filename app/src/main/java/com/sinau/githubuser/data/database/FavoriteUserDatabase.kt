@@ -17,7 +17,7 @@ abstract class FavoriteUserDatabase : RoomDatabase() {
         fun getDatabase(context: Context): FavoriteUserDatabase {
             if (INSTANCE == null) {
                 synchronized(FavoriteUserDatabase::class.java) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext, FavoriteUserDatabase::class.java, "favorite_database").build()
+                    INSTANCE = Room.databaseBuilder(context.applicationContext, FavoriteUserDatabase::class.java, "favoriteuser_database").build()
                 }
             }
             return INSTANCE as FavoriteUserDatabase
