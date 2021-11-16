@@ -31,5 +31,8 @@ data class DetailUserResponse(
     val followers: Int,
 
     @field:SerializedName("following")
-    val following: Int
+    val following: Int,
+
+    @field:SerializedName("type")
+    val type: String
 ) : Parcelable
