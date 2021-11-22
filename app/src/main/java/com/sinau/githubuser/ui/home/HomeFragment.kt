@@ -1,39 +1,46 @@
-package com.sinau.githubuser.ui.main
+package com.sinau.githubuser.ui.home
 
 import android.annotation.SuppressLint
 import android.app.SearchManager
+import android.content.Context.SEARCH_SERVICE
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import androidx.activity.viewModels
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sinau.githubuser.*
-import com.sinau.githubuser.databinding.ActivityMainBinding
+import com.sinau.githubuser.R
+import com.sinau.githubuser.databinding.FragmentHomeBinding
 import com.sinau.githubuser.model.User
+import com.sinau.githubuser.ui.ViewModelFactory
 import com.sinau.githubuser.ui.adapter.UserAdapter
 import com.sinau.githubuser.ui.setting.SettingActivity
 
-class MainActivity : AppCompatActivity() {
+class HomeFragment : Fragment() {
 
-    private lateinit var binding: ActivityMainBinding
-    private val mainViewModel by viewModels<MainViewModel>()
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding as FragmentHomeBinding
+    private lateinit var homeViewModel: HomeViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        // Inflate the layout for this fragment
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        homeViewModel = obtainViewModel(activity as AppCompatActivity)
+        return binding.root
+    }
 
-        mainViewModel.isLoading.observe(this, { loading ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        homeViewModel.isLoading.observe(viewLifecycleOwner, { loading ->
             showLoading(loading)
         })
-        mainViewModel.isOnline.observe(this, { status ->
+        homeViewModel.isOnline.observe(viewLifecycleOwner, { status ->
             showStatus(status)
         })
-        mainViewModel.user.observe(this, {
+        homeViewModel.user.observe(viewLifecycleOwner, {
             if (it.size == 0) {
                 showStatus(false)
                 binding.textStatus.text = getString(R.string.status_nothing)
@@ -41,6 +48,19 @@ class MainActivity : AppCompatActivity() {
                 showRecycleView(it)
             }
         })
+        homeViewModel.getAllFavorites().observe(viewLifecycleOwner, {
+
+        })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun obtainViewModel(activity: AppCompatActivity): HomeViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory)[HomeViewModel::class.java]
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -51,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             listUser.add(user)
         }
 
-        binding.rvUser.layoutManager = LinearLayoutManager(this)
+        binding.rvUser.layoutManager = LinearLayoutManager(activity)
 
         val userAdapter = UserAdapter(listUser)
         userAdapter.notifyDataSetChanged()
@@ -75,17 +95,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
 
-        val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
+        val searchManager = activity?.getSystemService(SEARCH_SERVICE) as SearchManager
         val searchView = menu.findItem(R.id.search).actionView as SearchView
 
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
         searchView.queryHint = resources.getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                mainViewModel.getUser(query)
+                homeViewModel.getUser(query)
                 return true
             }
 
@@ -93,17 +113,16 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
         })
-        return super.onCreateOptionsMenu(menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.setting -> {
-                val moveActivity = Intent(this, SettingActivity::class.java)
-                startActivity(moveActivity)
-                true
-            }
-            else -> true
+        return if (item.itemId == R.id.setting) {
+            val moveActivity = Intent(activity, SettingActivity::class.java)
+            startActivity(moveActivity)
+            true
+        } else {
+            true
         }
     }
 }

@@ -1,16 +1,19 @@
-package com.sinau.githubuser.ui.main
+package com.sinau.githubuser.ui.home
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sinau.githubuser.data.api.ApiConfig
+import com.sinau.githubuser.data.database.FavoriteUser
+import com.sinau.githubuser.data.repository.FavoriteUserRepository
 import com.sinau.githubuser.model.User
 import com.sinau.githubuser.model.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel : ViewModel() {
+class HomeViewModel(application: Application) : ViewModel() {
 
     private val _user = MutableLiveData<ArrayList<User>>()
     val user : LiveData<ArrayList<User>> = _user
@@ -45,7 +48,10 @@ class MainViewModel : ViewModel() {
                 _isLoading.value = false
                 _isOnline.value = false
             }
-
         })
     }
+
+    private val mFavoriteUserRepository: FavoriteUserRepository = FavoriteUserRepository(application)
+
+    fun getAllFavorites(): LiveData<List<FavoriteUser>> = mFavoriteUserRepository.getAllFavoriteUser()
 }

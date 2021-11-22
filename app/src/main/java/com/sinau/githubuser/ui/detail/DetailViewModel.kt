@@ -4,10 +4,14 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sinau.githubuser.R
 import com.sinau.githubuser.data.api.ApiConfig
 import com.sinau.githubuser.data.database.FavoriteUser
 import com.sinau.githubuser.data.repository.FavoriteUserRepository
 import com.sinau.githubuser.model.DetailUserResponse
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,6 +27,8 @@ class DetailViewModel(application: Application) : ViewModel() {
     val isOnline : LiveData<Boolean> = _isOnline
 
     private val mFavoriteUserRepository: FavoriteUserRepository = FavoriteUserRepository(application)
+
+    fun isFavoriteUser(id: Int): Boolean = mFavoriteUserRepository.isFavoriteUser(id) >= 1
 
     fun getDetailUser(username: String) : LiveData<DetailUserResponse> {
         val client = ApiConfig.getApiService().getDetail(username)
@@ -44,11 +50,19 @@ class DetailViewModel(application: Application) : ViewModel() {
         return _userDetail
     }
 
-    fun insert(favoriteUser: FavoriteUser) {
-        mFavoriteUserRepository.insert(favoriteUser)
+    fun insert(user: DetailUserResponse) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val login = user.login.trim()
+            val avatarUrl = user.avatarUrl.trim()
+            val id = user.id
+            val type = user.type.trim()
+
+            val favoriteUser = FavoriteUser(login, avatarUrl, id, type)
+            mFavoriteUserRepository.insert(favoriteUser)
+        }
     }
 
-    fun delete(favoriteUser: FavoriteUser) {
-        mFavoriteUserRepository.delete(favoriteUser)
+    fun delete(id: Int) {
+        mFavoriteUserRepository.delete(id)
     }
 }

@@ -9,22 +9,16 @@ import kotlinx.parcelize.Parcelize
 @Entity
 @Parcelize
 data class FavoriteUser (
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "nomor")
-    var nomor: Int = 0,
-
+    @PrimaryKey
     @ColumnInfo(name = "login")
-    var login: String? = null,
+    var login: String,
 
     @ColumnInfo(name = "avatarUrl")
-    var avatarUrl: String? = null,
+    var avatarUrl: String,
 
     @ColumnInfo(name = "id")
-    var id: Int? = null,
+    var id: Int,
 
     @ColumnInfo(name = "type")
-    var type: String? = null,
-
-    @ColumnInfo(name = "isFavorite")
-    var isFavorite: Boolean? = null
+    var type: String
 ) : Parcelable

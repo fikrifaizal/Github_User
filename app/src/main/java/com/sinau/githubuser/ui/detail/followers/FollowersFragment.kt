@@ -1,5 +1,6 @@
 package com.sinau.githubuser.ui.detail.followers
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +49,7 @@ class FollowersFragment : Fragment() {
         _binding = null
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun showFollowersRecyclerView(list: ArrayList<User>?) {
         val listUser : ArrayList<User> = arrayListOf()
         if (list != null) {

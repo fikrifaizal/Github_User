@@ -8,16 +8,20 @@ import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sinau.githubuser.R
+import com.sinau.githubuser.data.database.FavoriteUser
 import com.sinau.githubuser.ui.adapter.SectionsPagerAdapter
 import com.sinau.githubuser.databinding.ActivityDetailBinding
 import com.sinau.githubuser.model.DetailUserResponse
 import com.sinau.githubuser.model.User
 import com.sinau.githubuser.ui.ViewModelFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 
 class DetailActivity : AppCompatActivity() {
@@ -28,19 +32,22 @@ class DetailActivity : AppCompatActivity() {
     private var nameUser : String = ""
     private var locUser : String = ""
     private var compUser : String = ""
+
     private var isFavorite : Boolean = false
+    private lateinit var detailUser: DetailUserResponse
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         detailViewModel = obtainViewModel(this@DetailActivity)
 
+        // Detail User
         val user = intent.getParcelableExtra<User>(EXTRA_USERNAME) as User
 
         detailViewModel.getDetailUser(user.login).observe(this, {
             showDetailUser(it)
+            detailUser = it
         })
         detailViewModel.isOnline.observe(this, { status ->
             showStatus(status)
@@ -48,6 +55,29 @@ class DetailActivity : AppCompatActivity() {
         detailViewModel.isLoading.observe(this, { loading ->
             showLoading(loading)
         })
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            isFavorite = detailViewModel.isFavoriteUser(user.id)
+            if (isFavorite) {
+                binding.fabFavorite.setImageResource(R.drawable.ic_favorite_red)
+            } else {
+                binding.fabFavorite.setImageResource(R.drawable.ic_favorite_white)
+            }
+        }
+
+        binding.fabFavorite.setOnClickListener {
+            if (it.id == R.id.fab_favorite) {
+                if (isFavorite) {
+                    detailViewModel.delete(user.id)
+                    isFavorite = false
+                    binding.fabFavorite.setImageResource(R.drawable.ic_favorite_white)
+                } else {
+                    detailViewModel.insert(detailUser)
+                    isFavorite = true
+                    binding.fabFavorite.setImageResource(R.drawable.ic_favorite_red)
+                }
+            }
+        }
 
         setViewPager(user.login)
         val actionBar = supportActionBar
@@ -83,18 +113,22 @@ class DetailActivity : AppCompatActivity() {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
             binding.detailLayout.visibility = View.GONE
+            binding.fabFavorite.visibility = View.GONE
         } else {
             binding.progressBar.visibility = View.GONE
             binding.detailLayout.visibility = View.VISIBLE
+            binding.fabFavorite.visibility = View.VISIBLE
         }
     }
 
     private fun showStatus(isOnline: Boolean) {
         if (isOnline) {
             binding.detailLayout.visibility = View.VISIBLE
+            binding.fabFavorite.visibility = View.VISIBLE
             binding.status.visibility = View.GONE
         } else {
             binding.detailLayout.visibility = View.GONE
+            binding.fabFavorite.visibility = View.GONE
             binding.status.visibility = View.VISIBLE
             binding.textStatus.text = getString(R.string.status_offline)
         }
@@ -125,16 +159,6 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.favorite -> {
-                if (isFavorite) {
-                    isFavorite = false
-                    item.setIcon(R.drawable.ic_favorite_white)
-                } else {
-                    isFavorite = true
-                    item.setIcon(R.drawable.ic_favorite_red)
-                }
-                true
-            }
             R.id.share -> {
                 val shareText = "User *$nameUser* tinggal di $locUser dan bekerja di $compUser"
 

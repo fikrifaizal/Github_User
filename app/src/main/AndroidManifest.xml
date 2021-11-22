@@ -16,14 +16,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m" >
         <activity
-            android:name=".ui.favorite.FavoriteActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.setting.SettingActivity"
-            android:parentActivityName=".ui.main.MainActivity" >
+            android:parentActivityName=".ui.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.main.MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
         <activity
             android:name=".ui.SplashscreenActivity"
@@ -38,12 +35,13 @@
         </activity>
         <activity
             android:name=".ui.detail.DetailActivity"
-            android:parentActivityName=".ui.main.MainActivity" >
+            android:exported="true"
+            android:parentActivityName=".ui.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.main.MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".ui.MainActivity" />
     </application>
 
 </manifest>
