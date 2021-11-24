@@ -27,6 +27,7 @@
     <string name="image_status">Image Status Internet</string>
     <string name="status_offline">Oops, terjadi permalasahan. Pastikan internetmu sedang menyala ya</string>
     <string name="status_nothing">User yang anda cari tidak dapat kami temukan</string>
+    <string name="favorite_nothing">Anda tidak memiliki user yang difavoritkan</string>
 
     <!--  Menu  -->
     <string name="title_home">Home</string>

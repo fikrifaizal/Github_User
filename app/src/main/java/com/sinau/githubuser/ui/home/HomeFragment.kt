@@ -24,6 +24,11 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding as FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -65,15 +70,9 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showRecycleView(list: ArrayList<User>) {
-        val listUser : ArrayList<User> = arrayListOf()
-        for (id in list) {
-            val user = User(id.login, id.avatarUrl, id.id, id.type)
-            listUser.add(user)
-        }
-
         binding.rvUser.layoutManager = LinearLayoutManager(activity)
 
-        val userAdapter = UserAdapter(listUser)
+        val userAdapter = UserAdapter(list)
         userAdapter.notifyDataSetChanged()
 
         binding.rvUser.adapter = userAdapter
@@ -122,7 +121,7 @@ class HomeFragment : Fragment() {
             startActivity(moveActivity)
             true
         } else {
-            true
+            super.onOptionsItemSelected(item)
         }
     }
 }

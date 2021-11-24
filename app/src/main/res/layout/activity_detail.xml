@@ -11,7 +11,7 @@
         android:id="@+id/fab_favorite"
         android:layout_margin="16dp"
         android:foregroundGravity="bottom"
-        android:visibility="visible"
+        android:visibility="gone"
         android:src="@drawable/ic_favorite_white"
         android:contentDescription="@string/favorite"
         app:fabSize="normal"
@@ -54,7 +54,7 @@
                 android:layout_marginTop="8dp"
                 android:textSize="24sp"
                 android:gravity="center"
-                android:textColor="@color/black"
+                style="@style/TextColor.Black"
                 tools:text="Cek Internet"/>
         </LinearLayout>
 
@@ -94,7 +94,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textColor="@color/black"
+                            style="@style/TextColor.Black"
                             android:textStyle="bold"
                             android:textSize="18sp"
                             tools:text="1000" />
@@ -105,7 +105,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textColor="@color/black"
+                            style="@style/TextColor.Black"
                             android:textStyle="bold"
                             android:textSize="18sp"
                             tools:text="1000" />
@@ -116,7 +116,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textColor="@color/black"
+                            style="@style/TextColor.Black"
                             android:textStyle="bold"
                             android:textSize="18sp"
                             tools:text="1000" />
@@ -133,7 +133,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/repository"
-                            android:textColor="@color/black"
+                            style="@style/TextColor.Black"
                             android:textSize="14sp" />
 
                         <TextView
@@ -142,7 +142,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/followers"
-                            android:textColor="@color/black"
+                            style="@style/TextColor.Black"
                             android:textSize="14sp" />
 
                         <TextView
@@ -151,7 +151,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/following"
-                            android:textColor="@color/black"
+                            style="@style/TextColor.Black"
                             android:textSize="14sp" />
                     </TableRow>
                 </TableLayout>
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/user_name"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/black"
+                style="@style/TextColor.Black"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 tools:text="Nama User"/>
@@ -185,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/user_location"
                     android:textSize="14sp"
-                    android:textColor="@color/black"
+                    style="@style/TextColor.Black"
                     android:layout_marginStart="3dp"
                     tools:text="Lokasi User"/>
             </LinearLayout>
@@ -208,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/user_company"
                     android:textSize="14sp"
-                    android:textColor="@color/black"
+                    style="@style/TextColor.Black"
                     android:layout_marginStart="3dp"
                     tools:text="Perusahaan User"/>
             </LinearLayout>
@@ -218,7 +218,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@color/white"
                 app:tabTextColor="@android:color/black"/>
 
             <androidx.viewpager2.widget.ViewPager2

@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sinau.githubuser.R
 import com.sinau.githubuser.data.api.ApiConfig
 import com.sinau.githubuser.data.database.FavoriteUser
 import com.sinau.githubuser.data.repository.FavoriteUserRepository

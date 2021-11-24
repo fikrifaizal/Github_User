@@ -78,8 +78,8 @@ class FollowersFragment : Fragment() {
         }
     }
 
-    private fun isEmpty(isLoading: Boolean) {
-        if (isLoading) {
+    private fun isEmpty(empty: Boolean) {
+        if (empty) {
             binding.textIsempty.visibility = View.VISIBLE
             binding.rvFollowers.visibility = View.GONE
         } else {

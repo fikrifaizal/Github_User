@@ -41,6 +41,8 @@ class HomeViewModel(application: Application) : ViewModel() {
                 _isOnline.value = true
                 if (response.isSuccessful) {
                     _user.value = response.body()?.items
+                } else {
+                    _isOnline.value = false
                 }
             }
 

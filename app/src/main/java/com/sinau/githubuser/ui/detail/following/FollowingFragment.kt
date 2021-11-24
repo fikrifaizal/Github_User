@@ -1,5 +1,6 @@
 package com.sinau.githubuser.ui.detail.following
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +49,7 @@ class FollowingFragment : Fragment() {
         _binding = null
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun showFollowingRecyclerView(list: ArrayList<User>?) {
         val listUser : ArrayList<User> = arrayListOf()
         if (list != null) {
@@ -76,8 +78,8 @@ class FollowingFragment : Fragment() {
         }
     }
 
-    private fun isEmpty(isLoading: Boolean) {
-        if (isLoading) {
+    private fun isEmpty(empty: Boolean) {
+        if (empty) {
             binding.textIsempty.visibility = View.VISIBLE
             binding.rvFollowing.visibility = View.GONE
         } else {

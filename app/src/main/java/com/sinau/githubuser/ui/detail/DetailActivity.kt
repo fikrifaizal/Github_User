@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sinau.githubuser.R
-import com.sinau.githubuser.data.database.FavoriteUser
 import com.sinau.githubuser.ui.adapter.SectionsPagerAdapter
 import com.sinau.githubuser.databinding.ActivityDetailBinding
 import com.sinau.githubuser.model.DetailUserResponse
@@ -91,9 +90,9 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showDetailUser(user: DetailUserResponse) {
-        nameUser = if (user.name == "null") "-" else user.name
-        locUser = if (user.location == "null") "-" else user.location
-        compUser = if (user.company == "null") "-" else user.company
+        nameUser = if (user.name == "") "-" else user.name
+        locUser = if (user.location == "") "-" else user.location
+        compUser = if (user.company == "") "-" else user.company
 
         binding.apply {
             userName.text = nameUser
@@ -158,18 +157,18 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.share -> {
-                val shareText = "User *$nameUser* tinggal di $locUser dan bekerja di $compUser"
+        return if (item.itemId == R.id.share) {
+            val shareText = "User *$nameUser* tinggal di $locUser dan bekerja di $compUser"
 
-                val shareActivity = Intent(Intent.ACTION_SEND)
-                shareActivity.putExtra(Intent.EXTRA_TEXT, shareText)
-                shareActivity.type = "text/plain"
-                startActivity(Intent.createChooser(shareActivity, "Bagikan dengan"))
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+            val shareActivity = Intent(Intent.ACTION_SEND)
+            shareActivity.putExtra(Intent.EXTRA_TEXT, shareText)
+            shareActivity.type = "text/plain"
+            startActivity(Intent.createChooser(shareActivity, "Bagikan dengan"))
+            true
+        } else {
+            super.onOptionsItemSelected(item)
         }
+
     }
 
     companion object {

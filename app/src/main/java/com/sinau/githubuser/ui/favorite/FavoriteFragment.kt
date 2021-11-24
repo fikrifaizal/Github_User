@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sinau.githubuser.R
 import com.sinau.githubuser.data.database.FavoriteUser
 import com.sinau.githubuser.databinding.FragmentFavoriteBinding
 import com.sinau.githubuser.model.User
@@ -32,8 +33,11 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         favoriteViewModel.getAllNotes().observe(viewLifecycleOwner, {
-            if (it != null) {
-                showRecycleView(it)
+            showRecycleView(it)
+            if (it.isEmpty()) {
+                showStatus(true)
+            } else {
+                showStatus(false)
             }
         })
     }
@@ -52,16 +56,8 @@ class FavoriteFragment : Fragment() {
     private fun showRecycleView(list: List<FavoriteUser>) {
         val listUser : ArrayList<User> = arrayListOf()
         for (id in list) {
-            val user = id.login?.let { id.avatarUrl?.let { it1 -> id.id?.let { it2 ->
-                id.type?.let { it3 ->
-                    User(it, it1,
-                        it2, it3
-                    )
-                }
-            } } }
-            if (user != null) {
-                listUser.add(user)
-            }
+            val user = User(id.login, id.avatarUrl, id.id, id.type)
+            listUser.add(user)
         }
 
         val userAdapter = UserAdapter(listUser)
@@ -70,5 +66,14 @@ class FavoriteFragment : Fragment() {
         binding.rvFavorite.layoutManager = LinearLayoutManager(activity)
         binding.rvFavorite.adapter = userAdapter
         binding.rvFavorite.setHasFixedSize(true)
+    }
+
+    private fun showStatus(isEmpty: Boolean) {
+        if (isEmpty) {
+            binding.status.visibility = View.VISIBLE
+            binding.textStatus.text = getString(R.string.favorite_nothing)
+        } else {
+            binding.status.visibility = View.GONE
+        }
     }
 }
