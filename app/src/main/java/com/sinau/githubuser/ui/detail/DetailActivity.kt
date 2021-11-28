@@ -90,17 +90,18 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showDetailUser(user: DetailUserResponse) {
-        nameUser = if (user.name == "") "-" else user.name
-        locUser = if (user.location == "") "-" else user.location
-        compUser = if (user.company == "") "-" else user.company
+        // kalo gak gini, gak muncul dah strip nya
+        nameUser = user.name ?: "-"
+        locUser = user.location ?: "-"
+        compUser = user.company ?: "-"
 
         binding.apply {
             userName.text = nameUser
             userRepository.text = user.repository.toString()
             userFollowing.text = user.following.toString()
             userFollowers.text = user.followers.toString()
-            userLocation.text = locUser
-            userCompany.text = compUser
+            userLocation.text = compUser
+            userCompany.text = locUser
         }
 
         Glide.with(this@DetailActivity)

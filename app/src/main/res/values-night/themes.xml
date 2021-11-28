@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.GithubUser" parent="Theme.MaterialComponents">
+    <style name="Theme.GithubUser" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/github_normal</item>
-        <item name="colorPrimaryVariant">@color/github_dark</item>
+        <item name="colorPrimary">@color/dark_grey_800</item>
+        <item name="colorPrimaryVariant">@color/dark_grey_900</item>
         <item name="colorOnPrimary">@color/black</item>
 
         <!-- Secondary brand color. -->
@@ -13,8 +13,28 @@
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
 
-        <!-- Customize your theme here. -->
-        <item name="colorOnBackground">@color/github_bright</item>
+    <!--  TextView  -->
+    <style name="TextColor.White" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextColor.Black" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!--  Icon  -->
+    <style name="Icon.Company">
+        <item name="android:src">@drawable/ic_company_white</item>
+    </style>
+
+    <style name="Icon.Location">
+        <item name="android:src">@drawable/ic_location_white</item>
+    </style>
+
+    <!--  SplashScreen  -->
+    <style name="Splashscreen">
+        <item name="android:background">?android:attr/windowBackground</item>
     </style>
 </resources>

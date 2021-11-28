@@ -23,10 +23,10 @@
                 android:value=".ui.MainActivity" />
         </activity>
         <activity
-            android:name=".ui.SplashscreenActivity"
+            android:name=".ui.splashscreen.SplashscreenActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

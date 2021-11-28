@@ -52,9 +52,8 @@
                 android:id="@+id/text_status"
                 android:paddingHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                android:textSize="24sp"
                 android:gravity="center"
-                style="@style/TextColor.Black"
+                style="@style/TextColor.Black.Large"
                 tools:text="Cek Internet"/>
         </LinearLayout>
 
@@ -75,6 +74,8 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:id="@+id/user_photo"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="1dp"
                     tools:src="@tools:sample/avatars"/>
 
                 <TableLayout
@@ -94,9 +95,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            style="@style/TextColor.Black"
+                            style="@style/TextColor.Black.Medium"
                             android:textStyle="bold"
-                            android:textSize="18sp"
                             tools:text="1000" />
 
                         <TextView
@@ -105,9 +105,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            style="@style/TextColor.Black"
+                            style="@style/TextColor.Black.Medium"
                             android:textStyle="bold"
-                            android:textSize="18sp"
                             tools:text="1000" />
 
                         <TextView
@@ -116,9 +115,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            style="@style/TextColor.Black"
+                            style="@style/TextColor.Black.Medium"
                             android:textStyle="bold"
-                            android:textSize="18sp"
                             tools:text="1000" />
                     </TableRow>
 
@@ -133,8 +131,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/repository"
-                            style="@style/TextColor.Black"
-                            android:textSize="14sp" />
+                            style="@style/TextColor.Black.Small" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -142,8 +139,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/followers"
-                            style="@style/TextColor.Black"
-                            android:textSize="14sp" />
+                            style="@style/TextColor.Black.Small" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -151,8 +147,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/following"
-                            style="@style/TextColor.Black"
-                            android:textSize="14sp" />
+                            style="@style/TextColor.Black.Small" />
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
@@ -162,8 +157,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/user_name"
                 android:layout_marginTop="10dp"
-                style="@style/TextColor.Black"
-                android:textSize="18sp"
+                style="@style/TextColor.Black.Medium"
                 android:textStyle="bold"
                 tools:text="Nama User"/>
 
@@ -175,17 +169,14 @@
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_location"
+                    style="@style/Icon.Location"
                     android:contentDescription="@string/icon_location" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/user_location"
-                    android:textSize="14sp"
-                    style="@style/TextColor.Black"
+                    style="@style/TextColor.Black.Small"
                     android:layout_marginStart="3dp"
                     tools:text="Lokasi User"/>
             </LinearLayout>
@@ -198,17 +189,14 @@
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_company"
+                    style="@style/Icon.Company"
                     android:contentDescription="@string/icon_company" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/user_company"
-                    android:textSize="14sp"
-                    style="@style/TextColor.Black"
+                    style="@style/TextColor.Black.Small"
                     android:layout_marginStart="3dp"
                     tools:text="Perusahaan User"/>
             </LinearLayout>
@@ -218,7 +206,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                app:tabTextColor="@android:color/black"/>
+                android:background="?android:attr/windowBackground"
+                app:tabTextColor="?attr/colorOnSecondary"/>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"

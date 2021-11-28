@@ -10,5 +10,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/switch_theme"
         android:text="@string/theme"
-        android:textSize="16sp" />
+        style="@style/TextColor.Black.Medium" />
 </LinearLayout>

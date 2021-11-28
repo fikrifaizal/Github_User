@@ -4,12 +4,11 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sinau.githubuser.data.api.ApiConfig
 import com.sinau.githubuser.data.database.FavoriteUser
 import com.sinau.githubuser.data.repository.FavoriteUserRepository
 import com.sinau.githubuser.model.DetailUserResponse
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,7 +49,7 @@ class DetailViewModel(application: Application) : ViewModel() {
     }
 
     fun insert(user: DetailUserResponse) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             val login = user.login.trim()
             val avatarUrl = user.avatarUrl.trim()
             val id = user.id

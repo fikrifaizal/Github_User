@@ -8,6 +8,7 @@ import com.sinau.githubuser.ui.favorite.FavoriteViewModel
 import com.sinau.githubuser.ui.home.HomeViewModel
 import com.sinau.githubuser.ui.setting.SettingPreferences
 import com.sinau.githubuser.ui.setting.SettingViewModel
+import com.sinau.githubuser.ui.splashscreen.SplashscreenViewModel
 import java.lang.IllegalArgumentException
 
 class ViewModelFactory(private val mApplication: Any) : ViewModelProvider.NewInstanceFactory() {
@@ -40,6 +41,9 @@ class ViewModelFactory(private val mApplication: Any) : ViewModelProvider.NewIns
             }
             modelClass.isAssignableFrom(SettingViewModel::class.java) -> {
                 SettingViewModel(mApplication as SettingPreferences) as T
+            }
+            modelClass.isAssignableFrom(SplashscreenViewModel::class.java) -> {
+                SplashscreenViewModel(mApplication as SettingPreferences) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

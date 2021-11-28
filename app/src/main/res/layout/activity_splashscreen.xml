@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SplashscreenActivity"
+    tools:context=".ui.splashscreen.SplashscreenActivity"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/github_bright">
+    style="@style/Splashscreen"
+    tools:ignore="UseCompoundDrawables">
 
     <ImageView
         android:layout_width="230dp"

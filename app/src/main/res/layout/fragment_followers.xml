@@ -26,8 +26,7 @@
         android:id="@+id/text_isempty"
         android:visibility="gone"
         android:layout_marginTop="8dp"
-        android:textSize="16sp"
         android:gravity="center"
-        android:textColor="@color/black"
+        style="@style/TextColor.Black.Medium"
         tools:text="Cek Isi"/>
 </RelativeLayout>
