@@ -58,7 +58,7 @@ class DetailActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             isFavorite = detailViewModel.isFavoriteUser(user.id)
             if (isFavorite) {
-                binding.fabFavorite.setImageResource(R.drawable.ic_favorite_red)
+                binding.fabFavorite.setImageResource(R.drawable.ic_favorite_active)
             } else {
                 binding.fabFavorite.setImageResource(R.drawable.ic_favorite_white)
             }
@@ -73,7 +73,7 @@ class DetailActivity : AppCompatActivity() {
                 } else {
                     detailViewModel.insert(detailUser)
                     isFavorite = true
-                    binding.fabFavorite.setImageResource(R.drawable.ic_favorite_red)
+                    binding.fabFavorite.setImageResource(R.drawable.ic_favorite_active)
                 }
             }
         }
